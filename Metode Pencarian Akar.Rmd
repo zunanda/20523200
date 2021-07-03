@@ -1,0 +1,77 @@
+# Nama : Zunanda Ibrahim
+# NIM  : 20523200
+
+---
+Latihan
+1. Gunakan Metode Bisection untuk mencari perkiraan akar dari fungsi-fungsi berikut!
+    a. f(x)=x−−√−cosx pada selang [0,1]
+    b. f(x)=3(x+1)(x−12)(x−1) pada selang [−2,1.5] dan [-1.25,2.5]
+    c. f(x)=x3−2x2+14x−6 pada selang [0.1];[1,3.2];[3.2,4] dengan toleransi error 10−2
+2. Gunakan Metode Newton untuk mencari perkiraan akar fungsi-fungsi berikut!
+    a. f(x)=x2−6 dengan inisialisasi awal p0=1
+    b. f(x)=x3−2x2+14x−6 dengan inisialisasi awal p0=1.5
+3. Untuk mengerjakan soal 1 dan 2, silakan anda melakukan adjustment terhadap parameter      cacah iterasi dan atau toleransi error untuk mendapatkan hasil terbaik!
+---
+```{r}
+library(cmna)
+library(Deriv)
+```
+
+```{r}
+fa <- function(x) {
+  sqrt(x)-cos(x)
+}
+curve(fa, xlim=c(0,2))
+abline(h=0)
+abline(v=0)
+```
+```{r}
+fb <- function(x) {
+  3*(x+1)*(x-1/2)*(x-1)
+}
+curve(fb, xlim=c(0,3))
+abline(h=0)
+abline(v=0)
+```
+```{r}
+fc <- function(x) {
+  x^3-2*x^2+14*x-6
+}
+curve(fc, xlim=c(0,5))
+abline(h=0)
+abline(v=0)
+```
+```{r}
+#1a
+bisection(fa, 0, 1, tol = 1,m = 10)
+```
+```{r}
+#1b
+bisection(fb, -2, 1.5, tol = 4,m = 10)
+bisection(fb, -1.25, 2.5, tol = 4,m = 10)
+```
+```{r}
+#1c
+bisection(fc, 0, 1, tol = 0.4,m = 10)
+bisection(fc, 1, 3.2, tol = 0.6,m = 10)
+bisection(fc, 3.2, 4, tol = 1,m = 10)
+```
+```{r}
+#2a
+fa <- function(x) {
+  x^2-6
+}
+fp <- Deriv(fa)
+fp
+newton(fa, fp, 1, tol = 0.1, m = 10)
+```
+```{r}
+#2b
+fb <- function(x) {
+  x^3-2*x^2+14*x-6
+}
+fo <- Deriv(fb)
+fo
+newton(fb, fo, 1.5, tol = 0.1, m = 10)
+```
+
